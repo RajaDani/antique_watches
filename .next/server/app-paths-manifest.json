@@ -1,0 +1,10 @@
+{
+  "/brands/page": "app/brands/page.js",
+  "/about/page": "app/about/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/signin/page": "app/signin/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/page": "app/page.js",
+  "/api/watches/route": "app/api/watches/route.js",
+  "/api/brands/route": "app/api/brands/route.js"
+}

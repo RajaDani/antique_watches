@@ -226,8 +226,9 @@ export default function ProductsPage() {
           {sortedWatches.map((watch) => (
             <Card
               key={watch.id}
-              className={`group hover:shadow-xl transition-all duration-300 border-0 shadow-lg ${viewMode === "list" ? "flex flex-row" : ""
-                }`}
+              className={`group hover:shadow-xl transition-all duration-300 border-0 shadow-lg ${
+                viewMode === "list" ? "flex flex-row" : ""
+              }`}
             >
               <div
                 className={`relative overflow-hidden ${viewMode === "list" ? "w-48 flex-shrink-0" : "rounded-t-lg"}`}
@@ -237,8 +238,9 @@ export default function ProductsPage() {
                   alt={watch.name}
                   width={300}
                   height={300}
-                  className={`object-cover group-hover:scale-105 transition-transform duration-300 ${viewMode === "list" ? "w-full h-full" : "w-full h-64"
-                    }`}
+                  className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
+                    viewMode === "list" ? "w-full h-full" : "w-full h-64"
+                  }`}
                 />
                 <div className="absolute top-4 left-4">
                   <Badge className="bg-black/80 text-white">{watch.year_manufactured}</Badge>
