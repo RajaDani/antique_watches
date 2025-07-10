@@ -73,10 +73,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   }, [])
 
   async function fetchData() {
-    const productResponse = await fetch(`/api/admin/products/${params.id}`)
+    const watchesUrl = `/api/watches?id=${params.id}`
+    const productResponse = await fetch(watchesUrl)
     if (productResponse.ok) {
       const productData = await productResponse.json()
-      setWatchData(productData.product)
+      setWatchData(productData.watches)
     }
   }
 
