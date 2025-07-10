@@ -15,7 +15,8 @@ export async function GET(request: NextRequest) {
     }
 
     const admin = await getAdminById(decoded.adminId)
-    if (!admin || admin.role !== "super_admin") {
+    console.log("adminUSER", admin)
+    if (!admin?.id || (admin.role !== "admin" && admin.role !== "super_admin")) {
       return NextResponse.json({ error: "Insufficient permissions" }, { status: 403 })
     }
 
@@ -60,12 +61,12 @@ export async function POST(request: NextRequest) {
     }
 
     const decoded = verifyAdminToken(token)
-    if (!decoded) {
+    if (!decoded?.adminId) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 })
     }
 
     const admin = await getAdminById(decoded.adminId)
-    if (!admin || admin.role !== "super_admin") {
+    if (!admin?.id || (admin.role !== "admin" && admin.role !== "super_admin")) {
       return NextResponse.json({ error: "Insufficient permissions" }, { status: 403 })
     }
 
@@ -80,6 +81,8 @@ export async function POST(request: NextRequest) {
       role,
       created_by: admin.id,
     })
+
+    console.log("newAdmin", newAdmin)
 
     // Log activity
     await logAdminActivity(admin.id, "create", "admin_user", newAdmin.id, { email, role })

@@ -1,55 +1,102 @@
 import mysql from "mysql2/promise"
 
-const dbConfig = {
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "antique_watches_store",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-}
+class DatabaseManager {
+  private static instance: DatabaseManager
+  private connection: mysql.Connection | null = null
+  private isConnected: boolean = false
 
-let pool: mysql.Pool | null = null
+  private constructor() { }
 
-export function getPool() {
-  if (!pool) {
-    pool = mysql.createPool(dbConfig)
+  public static getInstance(): DatabaseManager {
+    if (!DatabaseManager.instance) {
+      DatabaseManager.instance = new DatabaseManager()
+    }
+    return DatabaseManager.instance
   }
-  return pool
-}
 
-export async function executeQuery(query: string, params: any[] = []) {
-  const connection = getPool()
-  try {
-    const [results] = await connection.execute(query, params)
-    return results
-  } catch (error) {
-    console.error("Database query error:", error)
-    throw error
+  public async connect(): Promise<void> {
+    if (this.isConnected && this.connection) return
+
+    try {
+      const dbConfig = {
+        host: process.env.DB_HOST || "localhost",
+        user: process.env.DB_USER || "root",
+        password: process.env.DB_PASSWORD || "",
+        database: process.env.DB_NAME || "antique_watches_store",
+        charset: "utf8mb4",
+        connectTimeout: 60000,
+      }
+
+      this.connection = await mysql.createConnection(dbConfig)
+
+      // Test the connection
+      await this.connection.ping()
+
+      this.isConnected = true
+      console.log("✅ Database connected successfully (single connection)")
+    } catch (error) {
+      console.error("❌ Database connection failed:", error)
+      throw error
+    }
   }
-}
 
-export async function executeTransaction(queries: { query: string; params: any[] }[]) {
-  const connection = await getPool().getConnection()
-  try {
-    await connection.beginTransaction()
+  public getConnection(): mysql.Connection {
+    if (!this.connection || !this.isConnected) {
+      throw new Error("Database not connected. Call connect() first.")
+    }
+    return this.connection
+  }
 
-    const results = []
-    for (const { query, params } of queries) {
-      const [result] = await connection.execute(query, params)
-      results.push(result)
+  public async executeQuery(query: string, params: any[] = []): Promise<any> {
+    if (!this.connection) {
+      await this.connect()
     }
 
-    await connection.commit()
-    return results
-  } catch (error) {
-    await connection.rollback()
-    throw error
-  } finally {
-    connection.release()
+    try {
+      const [results] = await this.connection!.execute(query, params)
+      return results
+    } catch (error) {
+      console.error("Database query error:", error)
+      throw error
+    }
+  }
+
+  public async executeTransaction(queries: { query: string; params: any[] }[]): Promise<any[]> {
+    if (!this.connection) {
+      await this.connect()
+    }
+
+    try {
+      await this.connection!.beginTransaction()
+
+      const results = []
+      for (const { query, params } of queries) {
+        const [result] = await this.connection!.execute(query, params)
+        results.push(result)
+      }
+
+      await this.connection!.commit()
+      return results
+    } catch (error) {
+      await this.connection!.rollback()
+      throw error
+    }
   }
 }
+
+// Handle single instance across hot reloads (dev/serverless safety)
+const globalForDb = globalThis as unknown as { dbInstance?: DatabaseManager }
+const db = globalForDb.dbInstance ?? DatabaseManager.getInstance()
+globalForDb.dbInstance = db
+
+// Auto connect
+db.connect().catch(console.error)
+
+// Export helpers
+export const executeQuery = (query: string, params: any[] = []) => db.executeQuery(query, params)
+export const executeTransaction = (queries: { query: string; params: any[] }[]) => db.executeTransaction(queries)
+export const getConnection = () => db.getConnection()
+
 
 // Product queries
 export async function getAllWatches() {

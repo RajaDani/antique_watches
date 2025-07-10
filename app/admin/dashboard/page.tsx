@@ -165,7 +165,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                <p className="text-3xl font-bold text-gray-900">${stats.totalRevenue.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">${stats.totalRevenue?.toLocaleString()}</p>
                 <div className="flex items-center mt-2">
                   {stats.revenueGrowth >= 0 ? (
                     <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -175,7 +175,7 @@ export default function AdminDashboard() {
                   <span
                     className={`text-sm font-medium ${stats.revenueGrowth >= 0 ? "text-green-600" : "text-red-600"}`}
                   >
-                    {Math.abs(stats.revenueGrowth)}%
+                    {Math.abs(stats?.revenueGrowth)}%
                   </span>
                   <span className="text-sm text-gray-500 ml-1">from last month</span>
                 </div>
@@ -192,7 +192,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Orders</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.totalOrders.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">{stats.totalOrders?.toLocaleString()}</p>
                 <div className="flex items-center mt-2">
                   {stats.ordersGrowth >= 0 ? (
                     <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -219,7 +219,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Customers</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.totalCustomers.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">{stats.totalCustomers?.toLocaleString()}</p>
                 <div className="flex items-center mt-2">
                   {stats.customersGrowth >= 0 ? (
                     <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -246,7 +246,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Products</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.totalProducts.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">{stats.totalProducts?.toLocaleString()}</p>
                 <div className="flex items-center mt-2">
                   {stats.productsGrowth >= 0 ? (
                     <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -332,8 +332,8 @@ export default function AdminDashboard() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold">${product.revenue.toLocaleString()}</p>
-                      <p className="text-xs text-gray-500">{product.sales_count} sales</p>
+                      <p className="font-bold">${product?.revenue?.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500">{product?.sales_count} sales</p>
                     </div>
                   </div>
                 ))

@@ -68,30 +68,30 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
       icon: Tag,
       roles: ["super_admin", "admin", "editor"],
     },
-    {
-      name: "Analytics",
-      href: "/admin/analytics",
-      icon: BarChart3,
-      roles: ["super_admin", "admin"],
-    },
+    // {
+    //   name: "Analytics",
+    //   href: "/admin/analytics",
+    //   icon: BarChart3,
+    //   roles: ["super_admin", "admin"],
+    // },
     {
       name: "Admin Users",
       href: "/admin/users",
       icon: UserPlus,
       roles: ["super_admin"],
     },
-    {
-      name: "Activity Logs",
-      href: "/admin/activity",
-      icon: Activity,
-      roles: ["super_admin", "admin"],
-    },
-    {
-      name: "Settings",
-      href: "/admin/settings",
-      icon: Settings,
-      roles: ["super_admin", "admin"],
-    },
+    // {
+    //   name: "Activity Logs",
+    //   href: "/admin/activity",
+    //   icon: Activity,
+    //   roles: ["super_admin", "admin"],
+    // },
+    // {
+    //   name: "Settings",
+    //   href: "/admin/settings",
+    //   icon: Settings,
+    //   roles: ["super_admin", "admin"],
+    // },
   ]
 
   const filteredNavigation = navigation.filter((item) => item.roles.includes(admin.role))
@@ -173,11 +173,10 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
               <Link key={item.name} href={item.href}>
                 <Button
                   variant={isActive ? "secondary" : "ghost"}
-                  className={`w-full justify-start text-left ${
-                    isActive
-                      ? "bg-amber-500 text-white hover:bg-amber-600"
-                      : "text-gray-300 hover:text-white hover:bg-slate-800"
-                  } ${isCollapsed ? "px-2" : "px-3"}`}
+                  className={`w-full justify-start text-left ${isActive
+                    ? "bg-amber-500 text-white hover:bg-amber-600"
+                    : "text-gray-300 hover:text-white hover:bg-slate-800"
+                    } ${isCollapsed ? "px-2" : "px-3"}`}
                 >
                   <Icon className={`w-5 h-5 ${isCollapsed ? "" : "mr-3"}`} />
                   {!isCollapsed && <span>{item.name}</span>}

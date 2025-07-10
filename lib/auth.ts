@@ -44,11 +44,11 @@ export async function getUserById(id: number): Promise<User | null> {
   return results[0] || null
 }
 
-export async function getUserByEmail(email: string): Promise<(User & { password_hash: string }) | null> {
+export async function getUserByEmail(email: string): Promise<(User & { password: string }) | null> {
   const results = (await executeQuery(
-    "SELECT id, email, password_hash, first_name, last_name, phone, profile_image, created_at FROM users WHERE email = ? AND is_active = TRUE",
+    "SELECT id, email, password, first_name, last_name, phone, profile_image, created_at FROM users WHERE email = ? AND is_active = TRUE",
     [email],
-  )) as (User & { password_hash: string })[]
+  )) as (User & { password: string })[]
 
   return results[0] || null
 }
@@ -63,7 +63,7 @@ export async function createUser(userData: {
   const hashedPassword = await hashPassword(userData.password)
 
   const result = (await executeQuery(
-    "INSERT INTO users (email, password_hash, first_name, last_name, phone) VALUES (?, ?, ?, ?, ?)",
+    "INSERT INTO users (email, password, first_name, last_name, phone) VALUES (?, ?, ?, ?, ?)",
     [userData.email, hashedPassword, userData.first_name, userData.last_name, userData.phone || null],
   )) as mysql.ResultSetHeader
 

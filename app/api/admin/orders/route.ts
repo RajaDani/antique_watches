@@ -47,9 +47,7 @@ export async function GET(request: NextRequest) {
       FROM orders o
       LEFT JOIN users u ON o.user_id = u.id
       ${whereClause}
-      ORDER BY o.created_at DESC
-      LIMIT ? OFFSET ?
-    `
+      ORDER BY o.created_at DESC `
 
     const countQuery = `
       SELECT COUNT(*) as total

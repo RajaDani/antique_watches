@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     }
 
     const decoded = verifyAdminToken(token)
-    if (!decoded) {
+    if (!decoded?.adminId) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 })
     }
 

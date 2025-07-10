@@ -6,6 +6,9 @@ import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import AdminSidebar from "@/components/admin/layout/admin-sidebar"
 import AdminHeader from "@/components/admin/layout/admin-header"
+import { Inter } from "next/font/google"
+
+const inter = Inter({ subsets: ["latin"] })
 
 interface AdminUser {
   id: number
@@ -34,7 +37,7 @@ export default function AdminLayout({
       const response = await fetch("/api/admin/auth/me")
       if (response.ok) {
         const data = await response.json()
-        setAdmin(data.admin)
+        setAdmin(data.user)
       } else {
         if (pathname !== "/admin/signin") {
           router.push("/admin/signin")
@@ -71,12 +74,16 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <AdminSidebar admin={admin} />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <AdminHeader admin={admin} />
-        <main className="flex-1 overflow-auto">{children}</main>
-      </div>
-    </div>
+    <html lang="en">
+      <body className={inter.className}>
+        <div className="flex h-screen bg-gray-50">
+          <AdminSidebar admin={admin} />
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <AdminHeader admin={admin} />
+            <main className="flex-1 overflow-auto">{children}</main>
+          </div>
+        </div>
+      </body>
+    </html>
   )
 }

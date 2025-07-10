@@ -347,9 +347,8 @@ export default function AdminBrandsPage() {
                     </TableCell>
                     <TableCell>
                       <Badge
-                        className={`cursor-pointer ${
-                          brand.is_active ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                        }`}
+                        className={`cursor-pointer ${brand.is_active ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                          }`}
                         onClick={() => toggleBrandStatus(brand.id, brand.is_active)}
                       >
                         {brand.is_active ? "Active" : "Inactive"}

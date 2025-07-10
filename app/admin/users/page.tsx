@@ -339,9 +339,8 @@ export default function AdminUsersPage() {
                     </TableCell>
                     <TableCell>
                       <Badge
-                        className={`cursor-pointer ${
-                          user.is_active ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                        }`}
+                        className={`cursor-pointer ${user.is_active ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                          }`}
                         onClick={() => toggleUserStatus(user.id, user.is_active)}
                       >
                         {user.is_active ? "Active" : "Inactive"}
