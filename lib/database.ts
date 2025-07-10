@@ -148,7 +148,11 @@ export async function getWatchById(id: number) {
     WHERE p.id = ? AND p.is_active = TRUE
   `
   const results = await executeQuery(query, [id])
-  return results[0] || null
+  const images = await executeQuery(
+    "SELECT image_url, is_primary, sort_order FROM product_images WHERE product_id = ? ORDER BY sort_order",
+    [id],
+  )
+  return { ...results[0], images } || null
 }
 
 export async function getWatchImages(productId: number) {
