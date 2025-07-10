@@ -42,7 +42,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [isWishlisted, setIsWishlisted] = useState(false)
-  const [watchData, setWatchData] = useState<Product>({
+  const [watchData, setWatchData] = useState<Partial<Product>>({
     name: "",
     description: "",
     brand_id: 0,
