@@ -115,10 +115,10 @@ export default function WishlistPage() {
                   <Button className="flex-1 bg-slate-900 hover:bg-slate-800">
                     <Link href={`/products/${item.id}`}>View Details</Link>
                   </Button>
-                  <Button variant="outline" className="bg-transparent">
+                  {/* <Button variant="outline" className="bg-transparent">
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     Add to Cart
-                  </Button>
+                  </Button> */}
                 </div>
               </CardContent>
             </Card>

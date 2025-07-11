@@ -80,6 +80,32 @@ html {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* Enhanced gradients for sections */
+.section-gradient {
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+.section-gradient-dark {
+  background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Enhanced button and card hover/active states */
+.btn-modern {
+  @apply transition-all duration-200 ease-in-out shadow hover:shadow-lg hover:scale-105;
+}
+.card-modern {
+  @apply rounded-xl shadow-md hover:shadow-xl transition-all duration-200 bg-white/90;
+}
+
 /* Animation for hover effects */
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
