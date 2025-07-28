@@ -69,9 +69,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-slate-100">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute inset-0 glass opacity-70"></div>
+      <section className="relative !bg-slate-900 text-white overflow-hidden">
         <div className="relative container mx-auto px-4 py-24 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-24 items-center">
             <div className="space-y-8 animate-fade-in-up">
@@ -237,11 +235,10 @@ export default function HomePage() {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-4 h-4 ${
-                            i < 4
-                              ? "text-yellow-400 fill-current"
-                              : "text-gray-300"
-                          }`}
+                          className={`w-4 h-4 ${i < 4
+                            ? "text-yellow-400 fill-current"
+                            : "text-gray-300"
+                            }`}
                         />
                       ))}
                     </div>
