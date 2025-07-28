@@ -194,85 +194,87 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredWatches.map((watch) => (
-              <Card
-                key={watch.id}
-                className="group card-modern glass hover:shadow-2xl transition-all duration-300 border-0 shadow-lg"
-              >
-                <div className="relative overflow-hidden rounded-t-lg">
-                  <Image
-                    src={
-                      watch.primary_image ||
-                      "/placeholder.svg?height=300&width=300"
-                    }
-                    alt={watch.name}
-                    width={300}
-                    height={300}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-black/80 text-white">
-                      {watch.year_manufactured}
-                    </Badge>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-green-500 text-white">
-                      {watch.condition_grade}
-                    </Badge>
-                  </div>
-                </div>
-                <CardContent className="p-6 space-y-4">
-                  <div>
-                    <p className="text-sm text-gray-500 font-medium">
-                      {watch.brand_name}
-                    </p>
-                    <h3 className="text-lg font-semibold line-clamp-2">
-                      {watch.name}
-                    </h3>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${i < 4
-                            ? "text-yellow-400 fill-current"
-                            : "text-gray-300"
-                            }`}
-                        />
-                      ))}
+              <Link href={`/products/${watch.id}`}>
+                <Card
+                  key={watch.id}
+                  className="group card-modern glass hover:shadow-2xl transition-all duration-300 border-0 shadow-lg"
+                >
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <Image
+                      src={
+                        watch.primary_image ||
+                        "/placeholder.svg?height=300&width=300"
+                      }
+                      alt={watch.name}
+                      width={300}
+                      height={300}
+                      className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-black/80 text-white">
+                        {watch.year_manufactured}
+                      </Badge>
                     </div>
-                    <span className="text-sm text-gray-600">(24)</span>
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-green-500 text-white">
+                        {watch.condition_grade}
+                      </Badge>
+                    </div>
                   </div>
+                  <CardContent className="p-6 space-y-4">
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">
+                        {watch.brand_name}
+                      </p>
+                      <h3 className="text-lg font-semibold line-clamp-2">
+                        {watch.name}
+                      </h3>
+                    </div>
 
-                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold">
-                        ${watch.price?.toLocaleString()}
-                      </span>
+                      <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-4 h-4 ${i < 4
+                              ? "text-yellow-400 fill-current"
+                              : "text-gray-300"
+                              }`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-sm text-gray-600">(24)</span>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold">
+                          ${watch.price?.toLocaleString()}
+                        </span>
+                        {watch.original_price &&
+                          watch.original_price > watch.price && (
+                            <span className="text-lg text-gray-500 line-through">
+                              ${watch.original_price.toLocaleString()}
+                            </span>
+                          )}
+                      </div>
                       {watch.original_price &&
                         watch.original_price > watch.price && (
-                          <span className="text-lg text-gray-500 line-through">
-                            ${watch.original_price.toLocaleString()}
-                          </span>
+                          <p className="text-sm text-green-600 font-medium">
+                            Save $
+                            {(
+                              watch.original_price - watch.price
+                            ).toLocaleString()}
+                          </p>
                         )}
                     </div>
-                    {watch.original_price &&
-                      watch.original_price > watch.price && (
-                        <p className="text-sm text-green-600 font-medium">
-                          Save $
-                          {(
-                            watch.original_price - watch.price
-                          ).toLocaleString()}
-                        </p>
-                      )}
-                  </div>
 
-                  <Button className="w-full bg-slate-900 hover:bg-slate-800 btn-modern">
-                    <Link href={`/products/${watch.id}`}>View Details</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Button className="w-full bg-slate-900 hover:bg-slate-800 btn-modern">
+                      View Details
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
 
