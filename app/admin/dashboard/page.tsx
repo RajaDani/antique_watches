@@ -165,7 +165,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                <p className="text-3xl font-bold text-gray-900">${stats.totalRevenue?.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-gray-900">Pkr. {stats.totalRevenue?.toLocaleString()}</p>
                 <div className="flex items-center mt-2">
                   {stats.revenueGrowth >= 0 ? (
                     <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -298,7 +298,7 @@ export default function AdminDashboard() {
                       <p className="text-xs text-gray-500">{new Date(order.created_at).toLocaleDateString()}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold">${order.total_amount.toLocaleString()}</p>
+                      <p className="font-bold">Pkr. {order.total_amount.toLocaleString()}</p>
                     </div>
                   </div>
                 ))
@@ -332,7 +332,7 @@ export default function AdminDashboard() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold">${product?.revenue?.toLocaleString()}</p>
+                      <p className="font-bold">Pkr. {product?.revenue?.toLocaleString()}</p>
                       <p className="text-xs text-gray-500">{product?.sales_count} sales</p>
                     </div>
                   </div>

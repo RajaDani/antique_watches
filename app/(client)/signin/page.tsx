@@ -38,8 +38,8 @@ export default function SignInPage() {
       const data = await response.json()
 
       if (response.ok) {
-        router.push("/profile")
-        router.refresh()
+        window.location.href = "/profile"
+        // router.refresh()
       } else {
         setError(data.error || "Failed to sign in")
       }

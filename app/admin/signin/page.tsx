@@ -40,7 +40,7 @@ export default function AdminSigninPage() {
 
       if (response.ok) {
         // Redirect to admin dashboard
-        router.push("/admin/dashboard")
+        window.location.href = "/admin/dashboard"
       } else {
         setError(data.error || "Failed to sign in")
       }

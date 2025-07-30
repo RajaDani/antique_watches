@@ -1,24 +1,26 @@
 import mysql from "mysql2/promise"
 
-let pool: mysql.Pool | null = null
-
-function createPool() {
-  if (!pool) {
-    pool = mysql.createPool({
-      host: process.env.DB_HOST || "localhost",
-      user: process.env.DB_USER || "root",
-      password: process.env.DB_PASSWORD || "",
-      database: process.env.DB_NAME || "antique_watches_store",
-      waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0,
-      acquireTimeout: 60000,
-      timeout: 60000,
-      charset: "utf8mb4",
-    })
-  }
-  return pool
+// Prevent multiple pools during dev hot reloads (Next.js, etc.)
+declare global {
+  var mysqlPool: mysql.Pool | undefined
 }
+
+const pool: mysql.Pool =
+  globalThis.mysqlPool ??
+  mysql.createPool({
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "",
+    database: process.env.DB_NAME || "antique_watches_store",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    acquireTimeout: 60000,
+    timeout: 60000,
+    charset: "utf8mb4",
+  })
+
+if (process.env.NODE_ENV !== "production") globalThis.mysqlPool = pool
 
 export async function executeQuery(query: string, params: any[] = [], connection?: mysql.PoolConnection): Promise<any> {
   try {
@@ -26,7 +28,6 @@ export async function executeQuery(query: string, params: any[] = [], connection
       const [results] = await connection.execute(query, params)
       return results
     } else {
-      const pool = createPool()
       const [results] = await pool.execute(query, params)
       return results
     }
@@ -40,7 +41,6 @@ export async function executeQuery(query: string, params: any[] = [], connection
 
 export async function beginTransaction(): Promise<mysql.PoolConnection> {
   try {
-    const pool = createPool()
     const connection = await pool.getConnection()
     await connection.beginTransaction()
     return connection
@@ -72,14 +72,28 @@ export async function rollbackTransaction(connection: mysql.PoolConnection): Pro
   }
 }
 
+export async function executeTransaction(queries: Array<{ query: string; params: any[] }>): Promise<any[]> {
+  const connection = await beginTransaction()
+  try {
+    const results: any[] = []
+
+    for (const { query, params } of queries) {
+      const result = await executeQuery(query, params, connection)
+      results.push(result)
+    }
+
+    await commitTransaction(connection)
+    return results
+  } catch (error) {
+    await rollbackTransaction(connection)
+    throw error
+  }
+}
+
 // Singleton pattern for database manager
 export class DatabaseManager {
   private static instance: DatabaseManager
-  private pool: mysql.Pool
-
-  private constructor() {
-    this.pool = createPool()
-  }
+  private constructor() { }
 
   public static getInstance(): DatabaseManager {
     if (!DatabaseManager.instance) {
@@ -105,13 +119,11 @@ export class DatabaseManager {
   }
 
   public async close(): Promise<void> {
-    if (this.pool) {
-      await this.pool.end()
-    }
+    await pool.end()
   }
 }
 
-// Product queries
+// Example reusable queries below
 export async function getAllWatches() {
   const query = `
     SELECT 
@@ -178,7 +190,6 @@ export async function getWatchImages(productId: number) {
   return await executeQuery(query, [productId])
 }
 
-// Brand queries
 export async function getAllBrands() {
   const query = `
     SELECT 
@@ -207,7 +218,6 @@ export async function getBrandBySlug(slug: string) {
   return results[0] || null
 }
 
-// Category queries
 export async function getAllCategories() {
   const query = `
     SELECT 

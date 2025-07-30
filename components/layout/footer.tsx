@@ -27,7 +27,7 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-gray-400" />
-                <span className="text-sm">+1 (555) 123-4567</span>
+                <span className="text-sm">+92 (333) 6100699</span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-gray-400" />
@@ -35,7 +35,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-gray-400" />
-                <span className="text-sm">123 Luxury Ave, New York, NY 10001</span>
+                <span className="text-sm">Punjab, Pakistan</span>
               </div>
             </div>
           </div>
@@ -53,11 +53,8 @@ export default function Footer() {
               <Link href="/about" className="block text-gray-300 hover:text-white transition-colors">
                 About Us
               </Link>
-              <Link href="/authentication" className="block text-gray-300 hover:text-white transition-colors">
+              <Link href="/signin" className="block text-gray-300 hover:text-white transition-colors">
                 Authentication
-              </Link>
-              <Link href="/services" className="block text-gray-300 hover:text-white transition-colors">
-                Watch Services
               </Link>
               <Link href="/contact" className="block text-gray-300 hover:text-white transition-colors">
                 Contact
@@ -123,9 +120,9 @@ export default function Footer() {
       {/* Bottom Footer */}
       <div className="border-t border-slate-800">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} Antique Watches. All rights reserved.</p>
-            <div className="flex items-center gap-6 text-sm">
+          {/* <div className="flex flex-col md:flex-row justify-between items-center gap-4"> */}
+          <p className="text-gray-400 text-sm text-center">© {new Date().getFullYear()} Antique Watches. All rights reserved.</p>
+          {/* <div className="flex items-center gap-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
                 Privacy Policy
               </Link>
@@ -135,8 +132,8 @@ export default function Footer() {
               <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">
                 Cookie Policy
               </Link>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
         </div>
       </div>
     </footer>
