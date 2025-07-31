@@ -89,16 +89,16 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div className="space-y-6">
-            <h4 className="text-lg font-semibold">Stay Connected</h4>
-            <p className="text-gray-300 text-sm">Subscribe to our newsletter for exclusive offers and new arrivals.</p>
-            <div className="space-y-3">
+            <h4 className="text-lg font-semibold">Follow us on</h4>
+            {/* <p className="text-gray-300 text-sm">Subscribe to our newsletter for exclusive offers and new arrivals.</p> */}
+            {/* <div className="space-y-3">
               <Input
                 type="email"
                 placeholder="Enter your email"
                 className="bg-slate-800 border-slate-700 text-white placeholder:text-gray-400"
               />
               <Button className="w-full bg-white text-slate-900 hover:bg-gray-100">Subscribe</Button>
-            </div>
+            </div> */}
             <div className="flex items-center gap-4 pt-4">
               <Link href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook className="w-5 h-5" />
@@ -112,6 +112,16 @@ export default function Footer() {
               <Link href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Youtube className="w-5 h-5" />
               </Link>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                <Clock className="w-6 h-6 text-slate-900" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">Antique Watches</h3>
+                <p className="text-sm text-gray-400">Premium Vintage Collection</p>
+              </div>
             </div>
           </div>
         </div>

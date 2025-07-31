@@ -22,7 +22,7 @@ interface Product {
   description: string
   price: number
   stock_quantity: number
-  image_url: string
+  image_url: any
   brand_name: string
   category_name: string
   year_manufactured?: number
@@ -280,32 +280,34 @@ export default function ProductDetailPage() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
-          <div className="space-y-4">
-            <div className="relative aspect-square overflow-hidden rounded-lg bg-white">
-              <Image
-                src={product.image_url || "/placeholder.svg?height=600&width=600"}
-                alt={product.name}
-                fill
-                className="object-cover"
-                priority
-              />
-              {product.stock_quantity === 0 && (
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                  <Badge variant="destructive" className="text-lg px-4 py-2">
-                    Out of Stock
-                  </Badge>
-                </div>
-              )}
-              {isInCart && (
-                <div className="absolute top-4 right-4">
-                  <Badge className="bg-green-600 text-white">
-                    <Check className="w-3 h-3 mr-1" />
-                    In Cart ({cartQuantity})
-                  </Badge>
-                </div>
-              )}
+          {product.images.map((x: any) => {
+            return <div className="space-y-4">
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-white">
+                <Image
+                  src={x.image_url || "/placeholder.svg?height=600&width=600"}
+                  alt={x.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                {product.stock_quantity === 0 && (
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <Badge variant="destructive" className="text-lg px-4 py-2">
+                      Out of Stock
+                    </Badge>
+                  </div>
+                )}
+                {isInCart && (
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-green-600 text-white">
+                      <Check className="w-3 h-3 mr-1" />
+                      In Cart ({cartQuantity})
+                    </Badge>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          })}
 
           {/* Product Info */}
           <div className="space-y-6">

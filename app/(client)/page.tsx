@@ -373,7 +373,7 @@ export default function HomePage() {
       </section>
 
       {/* Keep existing Newsletter Section unchanged */}
-      <section className="py-20 bg-slate-900 text-white">
+      {/* <section className="py-20 bg-slate-900 text-white">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-2xl mx-auto space-y-8">
             <div className="space-y-4">
@@ -400,7 +400,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
