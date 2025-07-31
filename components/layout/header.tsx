@@ -172,9 +172,9 @@ export default function Header() {
               onClick={() => handleSearchResultClick(watch.id)}
             >
               <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                {watch.primary_image ? (
+                {watch.image_urls ? (
                   <Image
-                    src={watch.primary_image?.image_url || "/placeholder.svg"}
+                    src={watch.image_urls ? watch.image_urls[0] : "/placeholder.svg"}
                     alt={watch.name}
                     width={48}
                     height={48}
