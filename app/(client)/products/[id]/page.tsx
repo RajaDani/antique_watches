@@ -47,6 +47,7 @@ export default function ProductDetailPage() {
   const [isInWishlist, setIsInWishlist] = useState(false)
   const [addingToCart, setAddingToCart] = useState(false)
   const [addingToWishlist, setAddingToWishlist] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(1)
 
   // Check if product is already in cart and get its quantity
   const cartItem = product ? items.find((item) => item.id === product.id.toString()) : null
@@ -280,7 +281,7 @@ export default function ProductDetailPage() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
-          {product.images.map((x: any) => {
+          {/* {product.images.map((x: any) => {
             return <div className="space-y-4">
               <div className="relative aspect-square overflow-hidden rounded-lg bg-white">
                 <Image
@@ -307,7 +308,26 @@ export default function ProductDetailPage() {
                 )}
               </div>
             </div>
-          })}
+          })} */}
+
+          <div className="grid grid-cols-4 gap-4">
+            {product.images?.map((image, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedImage(index)}
+                className={`aspect-square bg-white rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === index ? "border-slate-900" : "border-gray-200"
+                  }`}
+              >
+                <Image
+                  src={image.image_url || "/placeholder.svg"}
+                  alt={`${product.name} view ${index + 1}`}
+                  width={150}
+                  height={150}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
 
           {/* Product Info */}
           <div className="space-y-6">
