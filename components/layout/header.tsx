@@ -244,7 +244,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8 ml-6">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-6 ml-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -260,7 +260,7 @@ export default function Header() {
           <div className="hidden md:flex items-center flex-1 max-w-md mx-8" ref={searchRef}>
             <div className="relative w-full flex">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                {/* <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" /> */}
                 <Input
                   placeholder="Search vintage watches..."
                   className="pl-10 pr-4 rounded-l-lg rounded-r-none shadow-sm focus:ring-2 focus:ring-slate-900 border-r-0"
